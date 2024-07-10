@@ -26,7 +26,7 @@ jobs:
 
       # Linux options
       CIBW_ARCHS_LINUX: auto64
-      CIBW_BEFORE_ALL_LINUX: /project/extern/vcpkg/bootstrap-vcpkg.sh
+      CIBW_BEFORE_ALL_LINUX: sudo apt-get install zip && /project/extern/vcpkg/bootstrap-vcpkg.sh
       CIBW_ENVIRONMENT_LINUX: "VCPKG_ROOT=/project/extern/vcpkg"
       CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
 
@@ -55,12 +55,8 @@ jobs:
 
       # Install latest CMake
       - name: Install CMake
+        if: matrix.os != 'ubuntu-latest'
         uses: lukka/get-cmake@latest
-
-      # Install dependencies
-      - name: Install dependencies
-        if: matrix.os == 'ubuntu-latest'
-        run: sudo apt-get install -y curl zip unzip tar
 
       # Install Python
       - name: Install Python
@@ -72,6 +68,7 @@ jobs:
 
       # Install vcpkg
       - name: Install vcpkg
+        if: matrix.os != 'ubuntu-latest'
         uses: lukka/run-vcpkg@v7
         with:
           setupOnly: true
