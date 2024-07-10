@@ -1,9 +1,9 @@
 import os
 import pathlib
-import sys
 import subprocess
+import sys
 
-from setuptools import setup, Extension
+from setuptools import Extension, setup
 from setuptools.command.build_ext import build_ext
 
 # Convert distutils Windows platform specifiers to CMake -A arguments
@@ -110,7 +110,7 @@ class CMakeBuild(build_ext):
 # This call to setup() does all the work
 setup(
     name="pynuspell",
-    version="1.0.0",
+    version="1.1.0",
     description="Python bindings for Nuspell - a fast and safe spellchecking C++ library",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -122,10 +122,11 @@ setup(
         "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Programming Language :: C++",
     ],
     ext_modules=[CMakeExtension("pynuspell")],
