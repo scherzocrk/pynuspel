@@ -55,8 +55,12 @@ jobs:
 
       # Install latest CMake
       - name: Install CMake
-        if: matrix.os != 'ubuntu-latest'
         uses: lukka/get-cmake@latest
+
+      # Install dependencies
+      - name: Install dependencies
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get install -y dependencies
 
       # Install Python
       - name: Install Python
