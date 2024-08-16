@@ -32,6 +32,10 @@ jobs:
       CIBW_ENVIRONMENT_LINUX: "VCPKG_ROOT=/project/extern/vcpkg"
       CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
 
+      # macOS options
+      CIBW_BEFORE_ALL_MACOS: >
+        brew install autoconf automake autoconf-archive
+
       # Testing
       CIBW_TEST_COMMAND: pytest {package}/tests/
       CIBW_TEST_REQUIRES: pytest
