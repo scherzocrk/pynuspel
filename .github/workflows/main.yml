@@ -27,7 +27,7 @@ jobs:
       # Linux options
       CIBW_ARCHS_LINUX: auto64
       CIBW_BEFORE_ALL_LINUX: >
-        yum install curl zip unzip tar -y &&
+        yum install curl zip unzip tar autoconf automake autoconf-archive -y &&
         /project/extern/vcpkg/bootstrap-vcpkg.sh
       CIBW_ENVIRONMENT_LINUX: "VCPKG_ROOT=/project/extern/vcpkg"
       CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
