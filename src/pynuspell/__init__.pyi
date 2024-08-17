@@ -2,7 +2,7 @@
 # AUTOMATICALLY GENERATED FILE, DO NOT EDIT!
 #
 
-"""Python bidings for nuspell - a fast and safe spellchecking C++ library"""
+"""Python bindings for Nuspell - a fast and safe spelling checker C++ library"""
 import pynuspell
 import typing
 
