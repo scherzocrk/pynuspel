@@ -22,7 +22,7 @@ jobs:
     env:
       buildDir: "${{ github.workspace }}/build/"
       # Skip building on CPython 2.7, 3.5 and PyPy wheels on all platforms
-      CIBW_SKIP: pp* cp27-* cp36-win32 cp37-*
+      CIBW_SKIP: pp* cp27-* cp36-win32 cp36-* cp37-*
 
       # Linux options
       CIBW_ARCHS_LINUX: auto64
