@@ -1,26 +1,36 @@
-import pathlib
+"""Test pynuspell module."""
+
+from pathlib import Path
+from pytest import fixture
 
 import pynuspell
 
-dictionary_path = str(pathlib.Path(
-    __file__).parent.absolute().joinpath('en-US'))
+
+@fixture
+def dictionary_path():
+    """Create path to dictionary."""
+    return str(Path(__file__).parent.absolute().joinpath('en-US'))
 
 
-def test_load_from_path():
-    nuspell_dict = pynuspell.load_from_path(dictionary_path)
-    assert type(nuspell_dict) == pynuspell.Dictionary
+def test_load_from_path(dictionary_path):
+    """Check the type."""
+    checker = pynuspell.load_from_path(dictionary_path)
+    assert isinstance(checker, pynuspell.Dictionary)
 
 
-def test_spell_correct():
-    nuspell_dict = pynuspell.load_from_path(dictionary_path)
-    assert nuspell_dict.spell('spookier') == True
+def test_spell_correct(dictionary_path):
+    """Check spelling is correct."""
+    checker = pynuspell.load_from_path(dictionary_path)
+    assert checker.spell('spookier') is True
 
 
-def test_spell_wrong():
-    nuspell_dict = pynuspell.load_from_path(dictionary_path)
-    assert nuspell_dict.spell('spookie') == False
+def test_spell_wrong(dictionary_path):
+    """Check spelling is incorrect."""
+    checker = pynuspell.load_from_path(dictionary_path)
+    assert checker.spell('spookie') is False
 
 
-def test_suggest():
-    nuspell_dict = pynuspell.load_from_path(dictionary_path)
-    assert nuspell_dict.suggest('spookie') == ['spookier', 'spook']
+def test_suggest(dictionary_path):
+    """Get suggestions."""
+    checker = pynuspell.load_from_path(dictionary_path)
+    assert checker.suggest('spookie') == ['spookier', 'spook']

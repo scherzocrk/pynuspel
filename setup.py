@@ -1,9 +1,9 @@
 import os
 import pathlib
-import sys
 import subprocess
+import sys
 
-from setuptools import setup, Extension
+from setuptools import Extension, setup
 from setuptools.command.build_ext import build_ext
 
 # Convert distutils Windows platform specifiers to CMake -A arguments
@@ -62,8 +62,17 @@ class CMakeBuild(build_ext):
             # exported for Ninja to pick it up, which is a little tricky to do.
             # Users can override the generator with CMAKE_GENERATOR in CMake
             # 3.15+.
-            if not cmake_generator:
-                cmake_args += ["-GNinja"]
+            if not cmake_generator or cmake_generator == "Ninja":
+                try:
+                    import ninja
+
+                    ninja_executable_path = pathlib.Path(ninja.BIN_DIR) / "ninja"
+                    cmake_args += [
+                        "-GNinja",
+                        f"-DCMAKE_MAKE_PROGRAM:FILEPATH={ninja_executable_path}",
+                    ]
+                except ImportError:
+                    pass
 
         else:
             # Single config generators are handled "normally"
@@ -110,11 +119,11 @@ class CMakeBuild(build_ext):
 # This call to setup() does all the work
 setup(
     name="pynuspell",
-    version="1.0.0",
-    description="Python bindings for Nuspell - a fast and safe spellchecking C++ library",
+    version="1.1.0",
+    description="Python bindings for Nuspell - a fast and safe spelling checker C++ library",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://github.com/scherzocrk/pynuspell",
+    url="https://github.com/renan-r-santos/pynuspell",
     author="Renan Santos",
     author_email="renan.engmec@gmail.com",
     license="LGPL-3.0",
@@ -122,10 +131,11 @@ setup(
         "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Programming Language :: C++",
     ],
     ext_modules=[CMakeExtension("pynuspell")],

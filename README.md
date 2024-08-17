@@ -1,5 +1,5 @@
-[![PyNuspell](https://img.shields.io/badge/PyNuspell-v1.0.0-brightgreen)](https://github.com/scherzocrk/pynuspell)
-[![Nuspell](https://img.shields.io/badge/Nuspell-v4.2.0-brightgreen)](https://github.com/nuspell/nuspell)
+[![PyNuspell](https://img.shields.io/badge/PyNuspell-v1.1.0-brightgreen)](https://github.com/scherzocrk/pynuspell)
+[![Nuspell](https://img.shields.io/badge/Nuspell-v5.1.4-brightgreen)](https://github.com/nuspell/nuspell)
 [![Build](https://github.com/scherzocrk/pynuspell/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/scherzocrk/pynuspell/actions/workflows/main.yml)
 [![Python](https://img.shields.io/pypi/pyversions/pynuspell.svg)](https://pypi.org/project/pynuspell/)
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -50,7 +50,7 @@ https://github.com/nuspell/nuspell/wiki/Dictionaries-and-Contacts
 
 Requirements:
 
-- Python 3.6 or later
+- Python 3.8 or later
 - Git
 - C++ compiler with cmake
 
@@ -62,22 +62,26 @@ git clone --recurse-submodules https://github.com/scherzocrk/pynuspell.git
 cd pynuspell
 
 # Install vcpkg (Windows)
-.\extern\vcpkg\bootstrap-vcpkg.bat
-set VCPKG_ROOT=.\extern\vcpkg
+./extern/vcpkg/bootstrap-vcpkg.bat
+set VCPKG_ROOT=./extern/vcpkg
 
 # Install vcpkg (Linux/MacOS)
-.\extern\vcpkg\bootstrap-vcpkg.sh
-export VCPKG_ROOT=.\extern\vcpkg
+./extern/vcpkg/bootstrap-vcpkg.sh
+export VCPKG_ROOT=./extern/vcpkg
 
 # Install nuspell
-.\extern\vcpkg\vcpkg install nuspell
+apt-get install autoconf automake autoconf-archive
+./extern/vcpkg/vcpkg install nuspell
 
 # Build and install pynuspell
+python3 -m venv venv
+source venv/bin/activate
+pip install setuptools wheel
 python setup.py install
 
 # You can generate stub files for IntelliSense using:
 pip install pybind11-stubgen
-pybind11-stubgen --no-setup-py pynuspell
+pybind11-stubgen pynuspell
 
 # You can run somes tests using:
 pip install pytest
